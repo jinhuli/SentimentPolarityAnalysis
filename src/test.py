@@ -1,9 +1,9 @@
 import datetime
 from multiprocessing import Process
 
-from spa.feature_extraction import ChiSquare
-from spa.tools import get_accuracy
-from spa.tools import Write2File
+from src.feature_extraction import ChiSquare
+from src.tools import get_accuracy
+from src.tools import Write2File
 
 
 class Test:
@@ -35,7 +35,7 @@ class Test:
         self.precisions = precisions
 
     def test_knn(self):
-        from spa.classifiers import KNNClassifier
+        from src.classifiers import KNNClassifier
 
         if type(self.k) == int:
             k = "%s" % self.k
@@ -71,7 +71,7 @@ class Test:
         print("Train num = %s" % self.train_num)
         print("Test num = %s" % self.test_num)
 
-        from spa.classifiers import BayesClassifier
+        from src.classifiers import BayesClassifier
         bayes = BayesClassifier(self.train_data, self.train_labels, self.best_words)
 
         classify_labels = []
@@ -103,7 +103,7 @@ class Test:
         print("Test num = %s" % self.test_num)
         print("maxiter = %s" % self.max_iter)
 
-        from spa.classifiers import MaxEntClassifier
+        from src.classifiers import MaxEntClassifier
 
         m = MaxEntClassifier(self.max_iter)
         iter_results = m.test(self.train_data, self.train_labels, self.best_words, self.test_data)
@@ -133,7 +133,7 @@ class Test:
         print("Test num = %s" % self.test_num)
         print("maxiter = %s" % self.max_iter)
 
-        from spa.classifiers import MaxEntClassifier
+        from src.classifiers import MaxEntClassifier
 
         m = MaxEntClassifier(self.max_iter)
         m.train(self.train_data, self.train_labels, self.best_words)
@@ -160,7 +160,7 @@ class Test:
         print("Test num = %s" % self.test_num)
         print("C = %s" % self.C)
 
-        from spa.classifiers import SVMClassifier
+        from src.classifiers import SVMClassifier
         svm = SVMClassifier(self.train_data, self.train_labels, self.best_words, self.C)
 
         classify_labels = []
@@ -180,7 +180,7 @@ class Test:
 
 
 def test_movie():
-    from spa.corpus import MovieCorpus as Corpus
+    from src.corpus import MovieCorpus as Corpus
 
     type_ = "movie"
     train_num = 500
@@ -201,7 +201,7 @@ def test_movie():
 
 
 def test_movie2():
-    from spa.corpus import Movie2Corpus
+    from src.corpus import Movie2Corpus
 
     type_ = "movie2"
     train_num = 700
@@ -225,7 +225,7 @@ def test_movie2():
 
 
 def test_waimai():
-    from spa.corpus import WaimaiCorpus
+    from src.corpus import WaimaiCorpus
 
     type_ = "waimai"
     train_num = 3000
@@ -254,7 +254,7 @@ def test_waimai():
 
 
 def test_waimai2():
-    from spa.corpus import Waimai2Corpus
+    from src.corpus import Waimai2Corpus
 
     type_ = "waimai2"
     train_num = 3000
@@ -272,7 +272,7 @@ def test_waimai2():
 
 
 def test_hotel():
-    from spa.corpus import HotelCorpus
+    from src.corpus import HotelCorpus
 
     type_ = "hotel"
     train_num = 2200
@@ -303,17 +303,21 @@ def test_hotel():
 
 def test_dict():
     """
+    思想: 分句(针对每个句子进行情感分析) -> 每个句子如果是特殊句式就针对特殊句式特殊处理，否则针对每个词进行情感分析
     test the classifier based on Sentiment Dict
     """
     print("DictClassifier")
     print("---" * 45)
 
-    from spa.classifiers import DictClassifier
+    from src.classifiers import DictClassifier  # NOTE: 这一步很慢, don't know why.
 
     ds = DictClassifier()
 
     # 对一个单句进行情感分析
-    a_sentence = "剁椒鸡蛋好咸,土豆丝很好吃"
+    # a_sentence = "剁椒鸡蛋好咸,土豆丝很好吃"  # 修改前1/修改后1
+    # a_sentence = "不太好吃,相当难吃"  # 修改前0/修改后0
+    # a_sentence = "不太好吃,相当难吃,要是再放点儿辣椒就好了"  # 修改前1/修改后0
+    a_sentence = "要是再放点儿辣椒就好了"  # 修改前1/修改后0
     result = ds.analyse_sentence(a_sentence)
     print(result)
 
@@ -339,12 +343,9 @@ def test_dict():
 
 
 if __name__ == "__main__":
-    pass
     # test_movie()
     # test_movie2()
     # test_waimai()
     # test_waimai2()
-    test_hotel()
-    # test_dict()
-
-
+    # test_hotel()
+    test_dict()

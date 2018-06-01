@@ -1,4 +1,3 @@
-
 class ChiSquare:
     def __init__(self, doc_list, doc_labels):
         self.total_data, self.total_pos_data, self.total_neg_data = {}, {}, {}
@@ -37,10 +36,3 @@ class ChiSquare:
             return [word for word in words[:num]]
         else:
             return [word[0] for word in words[:num]]
-
-
-
-
-
-
-

@@ -99,7 +99,7 @@ class DictClassifier:
             sub_clause["score"] -= judgement["value"]
             return sub_clause
 
-        # 判断句式：是…不是…
+        # 判断句式：要的是…给的是
         judgement = self.__is_clause_pattern1(the_clause)
         if judgement != "":
             sub_clause["pattern"].append(judgement)
@@ -150,7 +150,8 @@ class DictClassifier:
 
     @staticmethod
     def __is_clause_pattern2(the_clause):
-        re_pattern = re.compile(r".*(如果|要是|希望).+就[\u4e00-\u9fa5]+(好|完美)了")
+        # re_pattern = re.compile(r".*(如果|要是|希望).+就[\u4e00-\u9fa5]+(好|完美)了")
+        re_pattern = re.compile(r".*(如果|要是|希望).+就[\u4e00-\u9fa5]*(好|完美)了")
         match = re_pattern.match(the_clause)
         if match is not None:
             pattern = {"key": "如果…就好了", "value": 1.0}
@@ -256,7 +257,7 @@ class DictClassifier:
         orientation = {"key": core_word, "adverb": [], "denial": [], "value": value}
         orientation_score = orientation["value"]  # my_sentiment_dict[segment]
 
-        # 在三个前视窗内，判断是否有否定词、副词
+        # 在三个前视窗内，判断是否有否定词、副词  # TODO: 下面三段代码是重复的？可以重构
         view_window = index - 1
         if view_window > -1:  # 无越界
             # 判断前一个词是否是情感词
@@ -373,7 +374,7 @@ class DictClassifier:
     def __divide_sentence_into_clauses(self, the_sentence):
         the_clauses = self.__split_sentence(the_sentence)
 
-        # 识别“是……不是……”句式
+        # 识别“是……不是……”句式(NOTE: 基本汉字的unicode编码取值范围是4E00-9FA5)
         pattern = re.compile(r"([，、。%！；？?,!～~.… ]*)([\u4e00-\u9fa5]*?(要|选)"
                              r"的.+(送|给)[\u4e00-\u9fa5]+?[，。！%；、？?,!～~.… ]+)")
         match = re.search(pattern, the_sentence.strip())
@@ -421,7 +422,7 @@ class DictClassifier:
         return clauses
 
     def __get_phrase_dict(self):
-        sentiment_dict = []
+        sentiment_dict = []  # not dict, but list of dict.
         pattern = re.compile(r"\s+")
         with open(self.__root_filepath + "phrase_dict.txt", "r", encoding="utf-8") as f:
             for line in f:
@@ -438,7 +439,7 @@ class DictClassifier:
                             a_phrase[a] = b
                     sentiment_dict.append(a_phrase)
 
-        return sentiment_dict
+        return sentiment_dict    # len(sentiment_dict): 38
 
     # 情感词典的构建
     @staticmethod
@@ -450,7 +451,7 @@ class DictClassifier:
                 result = pattern.split(line.strip())
                 if len(result) == 2:
                     sentiment_dict[result[0]] = float(result[1])
-        return sentiment_dict
+        return sentiment_dict    # len(sentiment_dict): 情感词 及 情感强度(打分)
 
     @staticmethod
     def __write_runout_file(path, info, encoding="utf-8"):
@@ -854,7 +855,4 @@ class SVMClassifier:
         prediction = self.clf.predict(vector)
 
         return prediction[0]
-
-
-
 

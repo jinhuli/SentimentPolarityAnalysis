@@ -4,11 +4,11 @@
 
 最后结果：
 
-![chi1](files/pic/chi1.png)
+![chi1](data/images/chi1.png)
 
 X^2值前几名的词语。能看出这些词都是一些有效的情感词。“了”这样的词出现在其中，说明可以去除一些停用词，来进一步提高分类精度。
 
-![chi2](files/pic/chi2.png)
+![chi2](data/images/chi2.png)
 
 X^2值后几名的词语。能看出这些词的分类作用不是很大。
 
@@ -17,7 +17,7 @@ X^2值后几名的词语。能看出这些词的分类作用不是很大。
 
 结果展示
 
-![evaluation](files/pic/evaluation.PNG)
+![evaluation](data/images/evaluation.PNG)
 
 ## 2、基于情感词典的情感极性分析 
 —— sentiment analysis based on sentiment dict
@@ -150,7 +150,7 @@ analysis_file(filepath_in, filepath_out, encoding="utf-8", print_show=False, sta
 
 ### 使用1：得到每次迭代的准确率的变化
 
-![maxent_iteration](files/pic/maxent_iteration.PNG)
+![maxent_iteration](data/images/maxent_iteration.PNG)
 
     def test_maxent_iteration(self):
         print("MaxEntClassifier iteration")
