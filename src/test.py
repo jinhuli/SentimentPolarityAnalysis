@@ -314,10 +314,10 @@ def test_dict():
     ds = DictClassifier()
 
     # 对一个单句进行情感分析
-    # a_sentence = "剁椒鸡蛋好咸,土豆丝很好吃"  # 修改前1/修改后1
+    a_sentence = "剁椒鸡蛋好咸,土豆丝很好吃"  # 修改前1/修改后1
     # a_sentence = "不太好吃,相当难吃"  # 修改前0/修改后0
     # a_sentence = "不太好吃,相当难吃,要是再放点儿辣椒就好了"  # 修改前1/修改后0
-    a_sentence = "要是再放点儿辣椒就好了"  # 修改前1/修改后0
+    # a_sentence = "要是再放点儿辣椒就好了"  # 修改前1/修改后0
     result = ds.analyse_sentence(a_sentence)
     print(result)
 

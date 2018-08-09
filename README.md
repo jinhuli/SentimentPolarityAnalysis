@@ -1,8 +1,8 @@
-## 1、预处理
-### （1）、特征提取
-- 对应文件：feature_extraction.py
+## 1.预处理
+### (1).特征提取
+- 对应文件: feature_extraction.py
 
-最后结果：
+最后结果: 
 
 ![chi1](data/images/chi1.png)
 
@@ -12,19 +12,19 @@ X^2值前几名的词语。能看出这些词都是一些有效的情感词。�
 
 X^2值后几名的词语。能看出这些词的分类作用不是很大。
 
-### （2）、结果评价
-- 对应文件：tools.py
+### (2).结果评价
+- 对应文件: tools.py
 
 结果展示
 
 ![evaluation](data/images/evaluation.PNG)
 
-## 2、基于情感词典的情感极性分析 
+## 2.基于情感词典的情感极性分析 
 —— sentiment analysis based on sentiment dict
 
-- 对应文件：classifier.py  DictClassifier
+- 对应文件: classifier.py  DictClassifier
 
-### 使用1：analyse_sentence
+### 使用1: analyse_sentence
 analyse_sentence(sentence, runout_filepath=None, print_show=False)
 
 对单个句子进行情感极性分析
@@ -35,7 +35,7 @@ analyse_sentence(sentence, runout_filepath=None, print_show=False)
 
 - 若print_show为True，则在控制台输出分析结果。
 
-运行实例：
+运行实例: 
     
     d = DictClassifier()
     a_sentence = "剁椒鸡蛋好咸,土豆丝很好吃"
@@ -57,7 +57,7 @@ analysis_file(filepath_in, filepath_out, encoding="utf-8", print_show=False, sta
 
 - end，输入文件结束分析的句子行数
 
-输出实例：
+输出实例: 
 
     送餐快，态度好！味道不错。
     Score:6.0
@@ -72,7 +72,7 @@ analysis_file(filepath_in, filepath_out, encoding="utf-8", print_show=False, sta
     Sub-clause2: conjunction:不过 positive:还好
 
 
-## 3、基于k-NN的情感极性分析 
+## 3.基于k-NN的情感极性分析 
 —— sentiment analysis based on k-NN
 
 ### single_k_classify(input_data)
@@ -124,7 +124,7 @@ analysis_file(filepath_in, filepath_out, encoding="utf-8", print_show=False, sta
 在某些特定数据下，multiple_k比每个single_k效果要好。但并不是总是最好。
 
 
-## 4、基于Bayes的情感极性分析 
+## 4.基于Bayes的情感极性分析 
 —— sentiment analysis based on bayes
     
     from spa.classifiers import BayesClassifier
@@ -145,10 +145,10 @@ analysis_file(filepath_in, filepath_out, encoding="utf-8", print_show=False, sta
     Write2File.write_contents(filepath, results)
 
 
-## 5、基于最大熵的情感极性分析 
+## 5.基于最大熵的情感极性分析 
 —— sentiment analysis based on maximum entropy
 
-### 使用1：得到每次迭代的准确率的变化
+### 使用1: 得到每次迭代的准确率的变化
 
 ![maxent_iteration](data/images/maxent_iteration.PNG)
 
@@ -182,7 +182,7 @@ analysis_file(filepath_in, filepath_out, encoding="utf-8", print_show=False, sta
 
         Write2File.write_contents(filepath, results)
 
-### 使用2：单个句子的情感极性划分
+### 使用2: 单个句子的情感极性划分
 
     def test_maxent(self):
         print("MaxEntClassifier")
@@ -212,7 +212,7 @@ analysis_file(filepath_in, filepath_out, encoding="utf-8", print_show=False, sta
         self.write(filepath, classify_results, 1)
 
 
-## 6、基于SVM的情感极性分析 
+## 6.基于SVM的情感极性分析 
 —— sentiment analysis based on SVM
 
 依赖于scikit-learn库。准确率较高！
@@ -242,39 +242,39 @@ analysis_file(filepath_in, filepath_out, encoding="utf-8", print_show=False, sta
 
         self.write(filepath, classify_labels, 2)
 
-## 7、几种情感分析方法比较
+## 7.几种情感分析方法比较
 
 ### 基于词典
-- 准确率：准确率较高（80%以上），随着人工工作量的增加，准确率增加
+- 准确率: 准确率较高(80%以上)，随着人工工作量的增加，准确率增加
 
-- 优点：易于理解
+- 优点: 易于理解
 
-- 缺点：人工工作量大
+- 缺点: 人工工作量大
 
 ### 基于k_NN
-- 准确率：很低（60% - 70%）
+- 准确率: 很低(60% - 70%)
 
-- 优点：思想简单、算法简单
+- 优点: 思想简单, 算法简单
 
-- 缺点：准确率低；耗内存；耗时间
+- 缺点: 准确率低；耗内存；耗时间
 
 ### 基于Bayes
-- 准确率：还可以（70% - 80%）
+- 准确率: 还可以(70% - 80%)
 
-- 优点：简单，高效，运算速度快，扩展性好
+- 优点: 简单，高效，运算速度快，扩展性好
 
-- 缺点：准确率不高，达不到实用
+- 缺点: 准确率不高，达不到实用
 
 ### 基于最大熵
-- 准确率：比较高（83%以上）
+- 准确率: 比较高(83%以上)
 
-- 优点：准确率高
+- 优点: 准确率高
 
-- 缺点：训练时间久
+- 缺点: 训练时间久
 
 ### 基于SVM
-- 准确率：最高（85%以上）
+- 准确率: 最高(85%以上)
 
-- 优点：准确率高
+- 优点: 准确率高
 
-- 缺点：训练耗时
+- 缺点: 训练耗时

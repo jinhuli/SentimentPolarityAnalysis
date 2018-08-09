@@ -11,9 +11,9 @@ from jieba import posseg
 # ################################################
 class DictClassifier:
     def __init__(self):
-        self.__root_filepath = "f_dict/"
+        self.__root_filepath = "../data/f_dict/"
 
-        jieba.load_userdict("f_dict/user.dict")  # 准备分词词典
+        jieba.load_userdict("../data/f_dict/user.dict")  # 准备分词词典
 
         # 准备情感词典词典
         self.__phrase_dict = self.__get_phrase_dict()
